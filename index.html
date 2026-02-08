@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/btn.css" />
+    <link rel="stylesheet" href="styles/input.css" />
+    <link rel="stylesheet" href="styles/box.css" />
+    <link rel="stylesheet" href="styles/absoluteBtn.css" />
+    <link rel="stylesheet" href="styles/responsive.css" />
+    <title>Gerador de QrCode</title>
+  </head>
+  <body>
+    <div class="container">
+      <div id="btnContainer">
+        <label for="url" id="Textinput">Cole sua url aqui</label>
+        <input type="text" name="URL input" id="url" class="infoClass" />
+
+        <button id="send" class="infoClass">Criar</button>
+      </div>
+
+      <div id="qrBox"></div>
+
+      <btn id="download">
+        <img src="assets/down.png" alt="Github" />
+      </btn>
+    </div>
+
+    <script src="scripts/qrcode.js"></script>
+    <script src="scripts/script.js"></script>
+  </body>
+</html>

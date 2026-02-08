@@ -1,0 +1,109 @@
+@media (min-width: 375px) {
+  #qrBox {
+    height: 50%;
+  }
+}
+@media (min-width: 425px) {
+  #qrBox {
+    height: 60%;
+  }
+}
+@media (min-width: 768px) {
+  #qrBox {
+    height: 60%;
+    width: 60%;
+  }
+  .container {
+    flex-direction: row-reverse;
+  }
+  #btnContainer {
+    flex-direction: column;
+
+    width: 50%;
+    height: 50%;
+
+    justify-content: flex-start;
+    align-items: center;
+    gap: 3%;
+  }
+  .infoClass {
+    margin-top: 10%;
+
+    width: 80%;
+    height: 20%;
+  }
+
+  #url {
+    text-align: left;
+    padding-left: 2px;
+    font-size: 110%;
+  }
+  #Textinput {
+    top: 26.5%;
+    left: 60%;
+  }
+}
+@media (min-width: 1024px) {
+  .infoClass {
+    height: 25%;
+    font-size: 120%;
+  }
+  #Textinput {
+    top: 28%;
+    left: 59.4%;
+    font-size: 102%;
+  }
+  #qrBox {
+    height: 75%;
+    width: 60%;
+  }
+}
+@media (min-width: 1440px) {
+  #qrBox {
+    height: 90%;
+    width: 50%;
+  }
+  #Textinput {
+    top: 32%;
+    left: 55%;
+  }
+}
+@media (min-width: 2560px) {
+  #qrBox {
+    height: 90%;
+  }
+  #Textinput {
+    font-size: 152%;
+    top: 34%;
+    left: 60%;
+  }
+  #url,
+  #qrBox,
+  #send {
+    border: 2.5px solid;
+  }
+  #btnContainer {
+    justify-content: center;
+    height: 90%;
+  }
+  .infoClass {
+    height: 13%;
+    width: 60%;
+
+    font-size: 152%;
+  }
+
+  #download img {
+    height: 80px;
+  }
+
+  #url {
+    font-size: 150%;
+    padding-left: 5px;
+  }
+
+  #qrBox {
+    height: 90%;
+    width: 50%;
+  }
+}

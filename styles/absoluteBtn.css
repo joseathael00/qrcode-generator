@@ -1,0 +1,19 @@
+#download {
+  position: absolute;
+
+  bottom: 10px;
+  right: 6px;
+
+  background-color: #ffffff31;
+  background-color: #ffffff31;
+
+  border: 2px solid #01002f;
+  border-radius: 10px;
+
+  width: fit-content;
+  height: fit-content;
+}
+#download img {
+  display: flex;
+  height: 60px;
+}
