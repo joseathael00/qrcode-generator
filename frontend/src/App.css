@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
+* {
+  font-family: "Inter";
+  margin: 0;
+  padding: 0;
+}
+h1 {
+  font-size: 2rem;
+}
+button {
+  border: 2px solid #535252;
+}
+input {
+  padding: 3px;
+  border-radius: 17px;
+}
+input::placeholder {
+  padding: 2px;
+}
+@theme {
+  --color-dark-blue: #0b0e2b;
+  --color-dark: #101011;
+  --shadow-marine-blue: 4px 4px 4px 0px rgba(11, 14, 43, 71);
+}
+
+@utility flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+@utility center {
+  justify-content: center;
+  align-items: center;
+  place-items: center;
+}
+
+@media (min-width: 2720px) {
+  h1 {
+    font-size: 50px;
+  }
+  button {
+    font-size: 20px;
+  }
+  input {
+    font-size: 25px;
+    padding-left: 12px;
+  }
+  input::placeholder {
+    font-size: 25px;
+  }
+}
