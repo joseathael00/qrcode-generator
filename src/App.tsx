@@ -73,7 +73,7 @@ export default function App() {
         <div
           // Adiciona a imagem do qrcode como background
           style={{ backgroundImage: `url(${qrCode})` }}
-          className="flex flex-col items-center justify-center w-62 h-62 md:h-70 md:w-70 lg:w-90 lg:h-90 xl:w-90 xl:h-90 
+          className="flex flex-col items-center justify-center w-full h-full md:h-70 md:w-70 lg:w-90 lg:h-90 xl:w-90 xl:h-90 
         2xl:h-160 2xl:w-160 rounded-2xl bg-dark text-center shadow-marine-blue bg-contain bg-no-repeat bg-center "
         >
           {/* Esses dois textos só aparecem se o qrcode ainda não foi gerado */}
