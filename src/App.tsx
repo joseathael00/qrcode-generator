@@ -1,5 +1,5 @@
 import useWindowWidth from "./scripts/windowWidth.ts";
-import "./app.css";
+import "./App.css";
 import { useState } from "react";
 
 export default function App() {
