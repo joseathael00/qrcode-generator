@@ -3,6 +3,7 @@
 @theme {
   --color-dark: #101011;
   --shadow-marine-blue: 4px 4px 4px -1px rgba(11, 24, 43, 0.72);
+  --color-gray: #535252;
 }
 
 @utility flex-center {

@@ -70,14 +70,14 @@ export default function App() {
                   setGeneratedUrl("");
                   setInputTextContent("");
                 }}
-                className="absolute bg-dark h-15 w-30 shadow-marine-blue bottom-75 right-80"
+                className="absolute bg-dark h-15 w-30 border-2 border-solid border-gray bottom-75 right-80"
               >
                 Limpar
               </button>
 
               <button
                 onClick={() => handleDownload()}
-                className="absolute bg-dark h-15 w-40 shadow-marine-blue top-75 left-75"
+                className="absolute bg-dark h-15 w-40 border-2 border-solid border-gray top-75 left-75"
               >
                 Baixar imagem
               </button>
@@ -95,9 +95,9 @@ export default function App() {
 
           <button
             onClick={() => setGeneratedUrl(inputTextContent)}
-            className="h-10 w-60 2xl:h-15 2xl:w-80 bg-dark shadow-marine-blue"
+            className="h-10 w-60 2xl:h-15 2xl:w-80 bg-dark border-2 border-solid border-gray"
           >
-            <p className="2xl:text-[1.2rem]">Gerar</p>
+            <p className="2xl:text-[1.2rem] ">Gerar</p>
           </button>
         </div>
 
