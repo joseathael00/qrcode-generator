@@ -1,119 +1,125 @@
-import useWindowWidth from "./scripts/windowWidth.ts";
 import "./App.css";
-import { useState } from "react";
+import { QRCodeSVG } from "qrcode.react";
+import { useEffect, useState } from "react";
+
+function QrCode({ url }: { url: string }) {
+  return url ? (
+    <QRCodeSVG
+      id="qr-canvas"
+      value={url}
+      size={256}
+      bgColor="#ffffff"
+      fgColor="#000000"
+      className="h-full w-full border-5 border-solid border-white rounded-2xl"
+      level="H"
+    />
+  ) : null;
+}
 
 export default function App() {
-  // Cria um state de nome qrCode, é onde a imagem do qrcode vai ficar
-  const [qrCode, setQrCode] = useState("");
+  function handleDownload() {
+    const svg = document.getElementById("qr-canvas");
+    if (!svg) return;
 
-  // State que captura a url dentro do input de url
-  const [url, SetUrl] = useState("");
+    const svgData = new XMLSerializer().serializeToString(svg);
 
-  // Função que envia a url pra api
-  async function sendUrl() {
-    const response = await fetch("http://127.0.0.1:8000", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ url }),
+    const svgBlob = new Blob([svgData], {
+      type: "image/svg+xml;charset=utf-8",
     });
-    // Trasforma a imagem em bytes
-    const blob = await response.blob();
+    const url = URL.createObjectURL(svgBlob);
 
-    // Cria uma url temporária pra imagem
-    const imageUrl = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "qrcode.svg";
+    document.body.appendChild(link);
+    link.click();
 
-    // Adiciona a imagem no state de qrcode
-    setQrCode(imageUrl);
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   }
+  const [inputTextContent, setInputTextContent] = useState("");
+  const [generatedUrl, setGeneratedUrl] = useState("");
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  // Variável que define o subtitulo da caixa do Qrcode
-  const subtitle =
-    useWindowWidth() > 768
-      ? "Preencha os campos ao lado"
-      : "Preencha os campos acima";
-
-  // Executa a função de enviar url quando a tecla 'Enter' é apertada
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") sendUrl();
-  };
+  // * UseEffect que guarda a largura da página sempre que o evento 'resize' é chamado
+  useEffect(() => {
+    // * Cria uma função que guarda a largura da página
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+    }
+    // * Cria um evento de 'resize' que chama a função criada acima
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <main className="flex flex-col items-center justify-center gap-2 w-screen h-screen bg-[#1a1c1e]">
-      <h1 className="text-white">
+    <main className="flex-center h-[95dvh] w-[95dvw] gap-2 p-10">
+      <h1 className="text-3xl 2xl:text-6xl">
         Gerador de <span className="text-[#3A629D]">Qr</span>Code
       </h1>
 
       <div
-        className="grid grid-cols-1 grid-rows-[0.5fr_1fr] lg:grid-cols-2 lg:grid-rows-1
-        w-[85dvw] h-[80dvh] md:w-[55dvw] lg:w-[80dvw] lg:h-[85dvh] xl:w-[60dvw]
-        rounded-2xl bg-[#26292D] relative"
+        className="grid grid-cols-1 grid-rows-2 place-items-center h-8/9 w-8/9 sm:grid-cols-2 sm:grid-rows-1  min-[425px]:w-90 sm:w-10/12
+       lg:w-230 2xl:w-10/12  bg-[#26292D] rounded shadow-marine-blue "
       >
-        <div className="flex flex-col justify-center place-items-center gap-10 w-full h-full">
+        <div className="flex-center gap-5 relative">
+          {generatedUrl ? (
+            <>
+              <button
+                onClick={() => {
+                  setGeneratedUrl("");
+                  setInputTextContent("");
+                }}
+                className="absolute bg-dark h-15 w-30 border-2 border-solid border-gray bottom-75 right-80"
+              >
+                Limpar
+              </button>
+
+              <button
+                onClick={() => handleDownload()}
+                className="absolute bg-dark h-15 w-40 border-2 border-solid border-gray top-75 left-75"
+              >
+                Baixar imagem
+              </button>
+            </>
+          ) : null}
+
           <input
             type="text"
-            name="Input de Url"
-            id="urlInput"
-            onKeyDown={handleKeyDown}
-            // Adiciona o valor do input no state Url sempre que ele é mudado
-            onChange={(e) => SetUrl(e.target.value)}
-            placeholder="Cole aqui a url"
-            className="px-3 w-[90%] h-12 md:w-[70%] lg:w-[80%] xl:w-[80%] border-2
-             border-solid border-[#606060] bg-[#5d5f62] outline-none rounded-lg"
+            value={inputTextContent}
+            placeholder="Cole sua URL aqui"
+            onChange={(e) => setInputTextContent(e.target.value)} // * Muda o valor do input sempre que algo novo é digitado dentro dele
+            className="h-10 min-w-15 2xl:h-15 2xl:w-80 2xl:text-[1.2rem] px-2! text-neutral-200 bg-[#3A3F44]
+       border border-solid border-[#171616] rounded-sm outline-0"
           />
+
           <button
-            className="w-[70%] md:w-[50%] lg:w-[50%] xl:w-[45%] hover:outline-none bg-[#1a1a1a] rounded-lg py-2"
-            onClick={sendUrl}
+            onClick={() => setGeneratedUrl(inputTextContent)}
+            className="h-10 w-60 2xl:h-15 2xl:w-80 bg-dark border-2 border-solid border-gray"
           >
-            Gerar QrCode
+            <p className="2xl:text-[1.2rem] ">Gerar</p>
           </button>
         </div>
 
         <div
-          // Adiciona a imagem do qrcode como background
-          style={{ backgroundImage: `url(${qrCode})` }}
-          className="flex flex-col items-center justify-center w-full h-full
-          rounded-2xl bg-[#0d0d0d] text-center bg-contain bg-no-repeat bg-center"
+          className="flex-center w-[90%] h-[90%] min-[325px]:w-65 min-[325px]:h-65 sm:h-75 sm:w-70 lg:h-90 lg:w-90 2xl:w-150
+         2xl:h-150 rounded-2xl shadow-marine-blue bg-dark "
         >
-          {/* Esses dois textos só aparecem se o qrcode ainda não foi gerado */}
-          {!qrCode && (
-            <h2 className="font-semibold text-white">
-              Aguardando dados
-            </h2>
-          )}
-          {!qrCode && (
-            <p className="text-base text-gray-400">{subtitle}</p>
+          {generatedUrl ? (
+            <QrCode url={generatedUrl} />
+          ) : (
+            <>
+              <p className="text-[20px] 2xl:text-3xl text-white ">
+                Aguardando dados...
+              </p>
+              <p className="text-[15px] 2xl:text-2xl text-[#B1AEAE]">
+                {windowWidth < 645
+                  ? "Preencha os campos acima"
+                  : "Preencha os campos ao lado"}
+              </p>
+            </>
           )}
         </div>
-
-        {/* Esses botões só aparecem quando o qrCode já foi gerado */}
-        {qrCode && (
-          <button
-            style={{ right: '4%' }}
-            className="h-12 w-12 absolute bottom-10 bg-cover bg-[#1a1a1a] rounded-lg"
-            id="download"
-            onClick={() => {
-              // Função anônima de download quando o botão de download é apertado
-              const link = document.createElement("a");
-              link.href = qrCode;
-              link.download = "qrcode.png";
-              link.click();
-            }}
-          ></button>
-        )}
-
-        {qrCode && (
-          <button
-            className="h-10 w-32 absolute top-12 right-7 border-2 border-solid border-[#020202] bg-[#1a1a1a] rounded-lg"
-            id="clear"
-            onClick={() => {
-              setQrCode("");
-            }}
-          >
-            Limpar QrCode
-          </button>
-        )}
       </div>
     </main>
   );
