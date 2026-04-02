@@ -12,3 +12,9 @@
   justify-content: center;
   align-items: center;
 }
+@media (min-width: 1024px) {
+  button:hover {
+    background-color: #2a3493;
+    box-shadow: 4px 4px 4px -1px #3f4dcc;
+  }
+}
